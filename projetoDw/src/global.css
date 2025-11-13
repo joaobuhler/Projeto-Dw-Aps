@@ -4,3 +4,25 @@
     box-sizing: border-box;
     font-family: var(--fonte);
 }
+
+input{
+    all: unset;
+    height: 44px;
+    width: 320px;
+    background-color: var(--cor-fundo);
+    box-shadow: var(--cor-detalhes) 8px 8px;
+    border-radius: 8px;
+    text-indent: 16px;
+}
+
+::placeholder{
+    color: var(--cor-detalhes);
+}
+
+button{
+
+}
+
+h1{
+    color: var(--cor-fundo);
+}
