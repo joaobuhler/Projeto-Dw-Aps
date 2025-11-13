@@ -6,6 +6,10 @@
     --cor-principal: #82c0cc;
     --cor-fundo: #edf2f4;
     --cor-detalhes: #489fb5;
+    --cor-escura: #16697a ;
 
     --fonte: "Comic Relief", system-ui;
+
+    --input-largura: 320px;
+    --input-altura: 44px;
 }

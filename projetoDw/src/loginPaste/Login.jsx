@@ -4,8 +4,11 @@ function Login(){
     return(
         <div>
             <div className="bodyLogin">
-                <div>
-
+                <div className='selectLoginCadastro'>
+                    <label class="toogle">
+                        <input type="checkbox" />
+                        <span class="sliderBar"></span>
+                    </label>
                 </div>
                 <div className='loginContainer'>
                     <h1>Login</h1>
@@ -14,8 +17,13 @@ function Login(){
                         <input type="text" placeholder='Senha'/>
                     </div>
                     <div className="loginButtonContainer">
-                        <button></button>
-                        <button></button>
+                        <button className='buttonRocket'>
+                            <i class="material-icons">rocket_launch</i>
+                            <span>Entrar</span>
+                        </button>
+                        <button>
+                            <span>Google</span>
+                        </button>
                     </div>
                 </div>
             </div>

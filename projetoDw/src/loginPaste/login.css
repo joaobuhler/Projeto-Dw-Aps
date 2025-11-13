@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
+    gap: 20px;
 }
 
 .loginContainer{
@@ -34,4 +35,40 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+}
+
+.buttonRocket{
+    all: unset;
+    height: 50px;
+    width: 122px;
+    background-color: var(--cor-detalhes);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    color: var(--cor-fundo);
+    cursor: pointer;
+    gap: 6px;
+}
+
+.buttonRocket i{
+    color: var(--cor-fundo);
+    margin-left: 16px;
+
+}
+
+.buttonRocket i {
+  margin-right: 3px;
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.buttonRocket span {
+  transition: transform 0.5s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.buttonRocket:hover i {
+  transform: translateX(5px) rotate(45deg);
+}
+
+.buttonRocket:hover span {
+  transform: translateX(7px);
 }
