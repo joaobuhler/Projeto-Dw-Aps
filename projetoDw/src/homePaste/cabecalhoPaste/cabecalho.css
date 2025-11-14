@@ -5,4 +5,41 @@
     height: 8vh;
     width: 100vw;
     background-color: var(--cor-detalhes);
+    padding: 8px;
+}
+
+.cabecalhoContainer i{
+    padding-left: 10px;
+    color: var(--cor-fundo);
+    font-size: 30px;
+}
+
+.esquerdaCabecalho{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.direitaCabecalho{
+    display: flex;
+}
+
+.botaoLogin{
+    background-color: var(--cor-detalhes);
+    height: 35px;
+    width: 65px;
+    margin-top: 5px;
+    color: var(--cor-fundo);
+    border: 2px solid var(--cor-fundo);
+}
+
+.direitaCabecalho i{
+    width: 50px;
+    height: 40px;
+    border: 2px solid var(--cor-fundo);
+    border-radius: 10px;
+    padding-top: 2px;
+    padding-left: 9px;
+    margin-right: 20px;
 }
