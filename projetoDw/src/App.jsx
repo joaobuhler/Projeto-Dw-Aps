@@ -1,7 +1,7 @@
 import './global.css'
 import './theme.css'
 import Home from './homePaste/Home'
-import Login from './loginPaste/Login'
+import Login from './loginCadastroPaste/LoginCadastro'
 
 
 function App(){

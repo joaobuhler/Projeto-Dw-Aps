@@ -7,6 +7,20 @@
     gap: 20px;
 }
 
+.cadastroContainer{
+    height: 600px;
+    width: 500px;
+    background-color: var(--cor-principal);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 40px;
+    box-shadow: var(--cor-detalhes) 8px 8px;
+    padding: 44px;
+}
+
 .loginContainer{
     height: 600px;
     width: 500px;
@@ -38,21 +52,21 @@
 }
 
 .buttonRocket{
-    all: unset;
-    height: 50px;
-    width: 122px;
-    background-color: var(--cor-detalhes);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    color: var(--cor-fundo);
-    cursor: pointer;
-    gap: 6px;
+  all: unset;
+  height: 50px;
+  width: 122px;
+  background-color: var(--cor-detalhes);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  color: var(--cor-fundo);
+  cursor: pointer;
+  gap: 6px;
 }
 
 .buttonRocket i{
-    color: var(--cor-fundo);
-    margin-left: 16px;
+  color: var(--cor-fundo);
+  margin-left: 16px;
 
 }
 
@@ -71,4 +85,8 @@
 
 .buttonRocket:hover span {
   transform: translateX(7px);
+}
+
+.cadastroContainer button{
+  width: 174px;
 }

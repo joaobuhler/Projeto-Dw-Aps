@@ -38,69 +38,69 @@ h1{
 }
 
 .toogle {
- --switch_width: 56px;
- --switch_height: 28px;
- font-size: 17px;
- position: relative;
- display: inline-block;
- width: var(--switch_width);
- height: var(--switch_height);
+    --switch_width: 56px;
+    --switch_height: 28px;
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    width: var(--switch_width);
+    height: var(--switch_height);
 }
 
 .toogle input {
- opacity: 0;
- width: 0;
- height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
 .sliderBar {
- box-sizing: border-box;
- border: 2px solid var(--cor-escura);
- position: absolute;
- cursor: pointer;
- top: 0;
- left: 0;
- right: 0;
- bottom: 0;
- background-color: var(--cor-principal);
- transition: .15s;
- border-radius: var(--switch_height);
+    box-sizing: border-box;
+    border: 2px solid var(--cor-escura);
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--cor-fundo);
+    transition: .15s;
+    border-radius: var(--switch_height);
 }
 
 .sliderBar:before {
- box-sizing: border-box;
- position: absolute;
- content: "";
- height: var(--switch_height);
- width: var(--switch_height);
- border: 2px solid var(--cor-escura);
- border-radius: 100%;
- left: -2px;
- bottom: -2px;
- background-color: var(--cor-fundo);
- transform: translateY(-0.2em);
- box-shadow: 0 0.2em 0 var(--cor-detalhes);
- transition: .15s;
+    box-sizing: border-box;
+    position: absolute;
+    content: "";
+    height: var(--switch_height);
+    width: var(--switch_height);
+    border: 2px solid var(--cor-escura);
+    border-radius: 100%;
+    left: -2px;
+    bottom: -2px;
+    background-color: var(--cor-fundo);
+    transform: translateY(-0.2em);
+    box-shadow: 0 0.2em 0 var(--cor-escura);
+    transition: .15s;
 }
 
 input:checked + .sliderBar {
- background-color: var(--cor-detalhes);
+    background-color: var(--cor-principal);
 }
 
 input:focus-visible + .sliderBar {
- box-shadow: 0 0 0 2px var(--track_active_color);
+    box-shadow: 0 0 0 2px var(--cor-principal);
 }
 
 input:hover + .sliderBar:before {
- transform: translateY(-0.3em);
- box-shadow: 0 0.3em 0 var(--outline_color);
+    transform: translateY(-0.3em);
+    box-shadow: 0 0.3em 0 var(--cor-escura);
 }
 
 input:checked + .sliderBar:before {
- transform: translateX(calc(var(--switch_width) - var(--switch_height))) translateY(-0.2em);
+    transform: translateX(calc(var(--switch_width) - var(--switch_height))) translateY(-0.2em);
 }
 
 input:hover:checked + .sliderBar:before {
- transform: translateX(calc(var(--switch_width) - var(--switch_height))) translateY(-0.3em);
- box-shadow: 0 0.3em 0 var(--outline_color);
+    transform: translateX(calc(var(--switch_width) - var(--switch_height))) translateY(-0.3em);
+    box-shadow: 0 0.3em 0 var(--cor-escura);
 }
