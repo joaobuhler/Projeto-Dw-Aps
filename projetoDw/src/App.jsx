@@ -6,7 +6,7 @@ import Login from "./loginCadastroPaste/LoginCadastro";
 function App() {
   return (
     <div>
-      <Login />
+      <Login/>
     </div>
   );
 }
