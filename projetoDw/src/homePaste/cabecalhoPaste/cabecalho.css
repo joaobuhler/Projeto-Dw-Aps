@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 60px;
+    height: var(--altura-cabecalho);
     width: 100vw;
     background-color: var(--cor-principal);
     padding: 16px;
@@ -28,16 +28,23 @@
 }
 
 .direitaCabecalho i{
-    border: 2px solid var(--cor-fundo);
+    border: 2px solid var(--cor-texto);
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.cabecalhoContainer i{
-    color: var(--cor-fundo);
+.person{
+    color: var(--cor-texto);
     font-size: 40px;
+}
+
+.menu{
+    margin-top: 5px;
+    text-indent: 10px;
+    color: var(--cor-texto);
+    font-size: 30px;
 }
 
 .esquerdaCabecalho button{
@@ -55,8 +62,8 @@
 .botaoLogin{
     all: unset;
     background-color: transparent;
-    color: var(--cor-fundo);
-    border: 2px solid var(--cor-fundo);
+    color: var(--cor-texto);
+    border: 2px solid var(--cor-texto);
     height: 40px;
     width: 65px;
     margin-top: 5px;

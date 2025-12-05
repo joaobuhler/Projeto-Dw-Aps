@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 :root{
@@ -7,9 +7,15 @@
     --cor-fundo: #edf2f4;
     --cor-detalhes: #489fb5;
     --cor-escura: #16697a ;
+    --cor-texto: #edf2f4;
+
+    --cor-navbar: #489fb5;
 
     --fonte: "Comic Relief", system-ui;
+    --fonte-2: "Roboto", sans-serif;
 
     --input-largura: 320px;
     --input-altura: 44px;
+
+    --altura-cabecalho: 70px;
 }

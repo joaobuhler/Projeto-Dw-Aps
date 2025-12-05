@@ -1,8 +1,3 @@
-
-:root {
-    --altura-cabecalho: 60px;
-}
-
 .navbarContainer {
     position: fixed;
     top: var(--altura-cabecalho);
@@ -15,13 +10,36 @@
     align-items: start;
     width: 280px;
     height: calc(100vh - var(--altura-cabecalho));
-    background-color: var(--cor-detalhes);
+    background-color: var(--cor-navbar);
     padding: 2rem;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--cor-principal) var(--cor-detalhes);
 }
 
+.navbarContent {
+    width: 100%;
+    color: var(--cor-texto);
+}
+
 .navbarAberta {
     left: 0;
+}
+
+.lista{
+    font-family: var(--fonte-2);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-bottom: var(--cor-texto) solid 3px;
+    gap: 2rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.subtitulo{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
 }

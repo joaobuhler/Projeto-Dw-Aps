@@ -14,12 +14,12 @@ function Cabecalho() {
     <>
     <div className="cabecalhoContainer">
       <div className="esquerdaCabecalho">
-        <button onClick={toggleNavbar}><i class="material-icons" >menu</i></button>
+        <button onClick={toggleNavbar}><i class="material-icons menu" >menu</i></button>
         <h1>Quizado</h1>
       </div>
       <div className="direitaCabecalho">
         <button className="botaoLogin">Entrar</button>
-        <button className="botaoPerfil"><i class="material-icons">person</i></button>
+        <button className="botaoPerfil"><i class="material-icons person">person</i></button>
       </div>
     </div>
 
