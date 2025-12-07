@@ -5,11 +5,24 @@ import { useState } from "react";
 function CriarQuiz() {
   const navigate = useNavigate();
 
-  const [selectedCategory, setSelectedCategory] = useState(null); // 0..3
-  const [selectedNum, setSelectedNum] = useState(null); // 0..2
-  const [selectedTempo, setSelectedTempo] = useState(null); // 0..2
-  const [selectedDifficulty, setSelectedDifficulty] = useState(null); // "Fácil"|"Médio"|"Difícil"
-  const [selectedPoderes, setSelectedPoderes] = useState(null); // "Sim"|"Não"
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedNum, setSelectedNum] = useState(null);
+  const [selectedTempo, setSelectedTempo] = useState(null);
+  const [selectedDifficulty, setSelectedDifficulty] = useState(null);
+  const [selectedPoderes, setSelectedPoderes] = useState(null);
+  const [questions, setQuestions] = useState([
+    {
+      id: Date.now(),
+      pergunta: "",
+      respostas: [
+        { letra: "A", texto: "", correta: false },
+        { letra: "B", texto: "", correta: false },
+        { letra: "C", texto: "", correta: false },
+        { letra: "D", texto: "", correta: false },
+      ],
+    },
+  ]);
+  const [activeTab, setActiveTab] = useState(Date.now());
 
   const toggleDifficulty = (diff) => {
     setSelectedDifficulty(selectedDifficulty === diff ? null : diff);
@@ -17,6 +30,35 @@ function CriarQuiz() {
 
   const togglePoderes = (poder) => {
     setSelectedPoderes(selectedPoderes === poder ? null : poder);
+  };
+
+  const handleAddQuestion = () => {
+    const newQuestion = {
+      id: Date.now(),
+      pergunta: "",
+      respostas: [
+        { letra: "A", texto: "", correta: false },
+        { letra: "B", texto: "", correta: false },
+        { letra: "C", texto: "", correta: false },
+        { letra: "D", texto: "", correta: false },
+      ],
+    };
+    setQuestions([...questions, newQuestion]);
+    setActiveTab(newQuestion.id);
+  };
+
+  const handleDeleteQuestion = (id) => {
+    const newQuestions = questions.filter((q) => q.id !== id);
+    setQuestions(newQuestions);
+    if (activeTab === id) {
+      setActiveTab(newQuestions.length > 0 ? newQuestions[0].id : null);
+    }
+  };
+
+  const handleUpdateQuestion = (id, updatedQuestion) => {
+    setQuestions(
+      questions.map((q) => (q.id === id ? updatedQuestion : q))
+    );
   };
 
   return (
@@ -176,33 +218,96 @@ function CriarQuiz() {
       </div>
       <div className="containerPerguntasCriarQuiz">
         <h1>Desenvolver Perguntas</h1>
-        <div className="perguntaCriarQuiz">
-          <input type="text" className="nomePerguntaCriarQuiz" placeholder="Digite sua pergunta..." />
-          <div className="respostasCriarQuiz">
-            <div className="divCriarQuiz">
-              <div className="letraCriarQuiz">A)</div>
-              <input className="respostaCriarQuiz" type="text" placeholder="Digite sua primeira alternativa" />
-              <input className="checkboxCriarQuiz" type="checkbox" />
-            </div>
-            <div className="divCriarQuiz">
-              <div className="letraCriarQuiz">B)</div>
-              <input className="respostaCriarQuiz" type="text" placeholder="Digite sua segunda alternativa" />
-              <input className="checkboxCriarQuiz" type="checkbox" />
-            </div>
-            <div className="divCriarQuiz">
-              <div className="letraCriarQuiz">C)</div>
-              <input className="respostaCriarQuiz" type="text" placeholder="Digite sua terceira alternativa" />
-              <input className="checkboxCriarQuiz" type="checkbox" />
-            </div>
-            <div className="divCriarQuiz">
-              <div className="letraCriarQuiz">D)</div>
-              <input className="respostaCriarQuiz" type="text" placeholder="Digite sua quarta alternativa" />
-              <input className="checkboxCriarQuiz" type="checkbox" />
-            </div>
+        
+        {questions.length > 0 && (
+          <div className="abasPerguntasCriarQuiz">
+            {questions.map((question, index) => (
+              <div key={question.id} className="containerAbaQuiz">
+                <div
+                  className={`abaQuiz ${activeTab === question.id ? "abaQuiz-active" : ""}`}
+                  onClick={() => setActiveTab(question.id)}
+                >
+                  <span>Pergunta {index + 1}</span>
+                  <button
+                    className="btnDeleteAba"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteQuestion(question.id);
+                    }}
+                    aria-label={`Deletar pergunta ${index + 1}`}
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
+        )}
+
+        {activeTab !== null && questions.find((q) => q.id === activeTab) && (
+          <div className="perguntaCriarQuiz">
+            {(() => {
+              const currentQuestion = questions.find((q) => q.id === activeTab);
+              return (
+                <>
+                  <input
+                    type="text"
+                    className="nomePerguntaCriarQuiz"
+                    placeholder="Digite sua pergunta..."
+                    value={currentQuestion.pergunta}
+                    onChange={(e) =>
+                      handleUpdateQuestion(activeTab, {
+                        ...currentQuestion,
+                        pergunta: e.target.value,
+                      })
+                    }
+                  />
+                  <div className="respostasCriarQuiz">
+                    {currentQuestion.respostas.map((resposta, idx) => (
+                      <div key={idx} className="divCriarQuiz">
+                        <div className="letraCriarQuiz">{resposta.letra})</div>
+                        <input
+                          className="respostaCriarQuiz"
+                          type="text"
+                          placeholder={`Digite sua ${idx === 0 ? "primeira" : idx === 1 ? "segunda" : idx === 2 ? "terceira" : "quarta"} alternativa`}
+                          value={resposta.texto}
+                          onChange={(e) => {
+                            const updatedRespostas = [...currentQuestion.respostas];
+                            updatedRespostas[idx].texto = e.target.value;
+                            handleUpdateQuestion(activeTab, {
+                              ...currentQuestion,
+                              respostas: updatedRespostas,
+                            });
+                          }}
+                        />
+                        <input
+                          className="checkboxCriarQuiz"
+                          type="checkbox"
+                          checked={resposta.correta}
+                          onChange={(e) => {
+                            const updatedRespostas = currentQuestion.respostas.map(
+                              (r, i) => ({
+                                ...r,
+                                correta: i === idx ? e.target.checked : false,
+                              })
+                            );
+                            handleUpdateQuestion(activeTab, {
+                              ...currentQuestion,
+                              respostas: updatedRespostas,
+                            });
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </>
+              );
+            })()}
+          </div>
+        )}
+
       </div>
-      <div id="btnCriarQuiz">
+      <div id="btnCriarQuiz" onClick={handleAddQuestion}>
         <i className="material-icons">add</i>
       </div>
     </div>
