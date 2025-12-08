@@ -26,7 +26,7 @@
     align-items: center;
     margin-top: 50px;
     background-color: var(--cor-principal);
-    height: 5000px;
+    height: 1800px;
     width: 90vw;
     justify-self: center;
     border-top-left-radius: 40px;
@@ -268,7 +268,7 @@
 
 .respostaCriarQuiz{
     all: unset;
-    width: 28rem;
+    width: 55rem;
     height: 3rem;
     background-color: var(--cor-texto);
     border-radius: 1rem;
@@ -302,7 +302,7 @@
     display: flex;
     gap: 1rem;
     background-color: var();
-    margin: 2rem 0 1rem 0;
+    margin: 2rem 0 3rem 7rem;
     flex-wrap: wrap;
     width: 100%;
     justify-content: flex-start;
@@ -315,6 +315,7 @@
 .abaQuiz {
     display: flex;
     align-items: center;
+    width: 11rem;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
     background-color: var(--cor-escura);

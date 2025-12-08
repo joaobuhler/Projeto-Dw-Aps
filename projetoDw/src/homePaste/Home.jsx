@@ -1,15 +1,22 @@
+import { useState } from "react";
 import "./home.css";
 import Cabecalho from "./cabecalhoPaste/Cabecalho";
-import Navbar from "./navbarPaste/Navbar";
 import Corpo from "./corpoPaste/Corpo";
 
 function Home() {
+  const [navbarAberta, setNavbarAberta] = useState(false);
+
   return (
     <div>
       <div className="homeContainer">
-        <Cabecalho />
+        <Cabecalho navbarAberta={navbarAberta} setNavbarAberta={setNavbarAberta} />
+        {/* overlay que escurece o conteúdo quando a navbar está aberta */}
+        <div
+          className={`overlay ${navbarAberta ? "active" : ""}`}
+          onClick={() => setNavbarAberta(false)}
+          aria-hidden={!navbarAberta}
+        />
         <div className="homeBaixoCabecalho">
-          <Navbar />
           <Corpo />
         </div>
       </div>

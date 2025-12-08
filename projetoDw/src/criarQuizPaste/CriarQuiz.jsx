@@ -33,6 +33,11 @@ function CriarQuiz() {
   };
 
   const handleAddQuestion = () => {
+  if (questions.length >= 24){
+    alert("Limite de 24 perguntas atingido.");
+    return;
+  };
+
     const newQuestion = {
       id: Date.now(),
       pergunta: "",

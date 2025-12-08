@@ -9,3 +9,23 @@
 .homeBaixoCabecalho{
     display: flex;
 }
+
+/* overlay que escurece a tela quando a navbar estiver aberta */
+.overlay {
+  position: fixed;
+  top: var(--altura-cabecalho);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0); /* inicialmente transparente */
+  transition: background 0.22s ease, opacity 0.22s ease;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 900; /* abaixo da navbar (navbar usa z-index:1000) */
+}
+
+.overlay.active {
+  background: rgba(0, 0, 0, 0.726); /* nivel de escurecimento */
+  opacity: 1;
+  pointer-events: auto;
+}

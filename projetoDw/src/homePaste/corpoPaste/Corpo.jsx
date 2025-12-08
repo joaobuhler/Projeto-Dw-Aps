@@ -2,7 +2,14 @@ import { useState, useEffect } from "react";
 import './corpo.css';
 
 function Corpo() {
-    const [modoEscuro, setModoEscuro] = useState(false);
+    const [modoEscuro, setModoEscuro] = useState(() => {
+        try {
+            const raw = localStorage.getItem("modoEscuro");
+            return raw ? JSON.parse(raw) : false;
+        } catch (e) {
+            return false;
+        }
+    });
 
     useEffect(() => {
         const root = document.documentElement;
@@ -20,13 +27,31 @@ function Corpo() {
             root.style.setProperty("--cor-escura", "#16697a");
             root.style.setProperty("--cor-navbar", "#489fb5");
         }
+
+        try {
+            localStorage.setItem("modoEscuro", JSON.stringify(modoEscuro));
+        } catch (e) {
+        }
     }, [modoEscuro]);
 
     return (
         <div className='corpoContainer'>
+            <div className='corpoConteudo'>
+                <div className="blocoQuiz" />
+                <div className="blocoQuiz" />
+                <div className="blocoQuiz" />
+                <div className="blocoQuiz" />
+                <div className="blocoQuiz" />
+                <div className="blocoQuiz" />
+                <div className="blocoQuiz" />
+                <div className="blocoQuiz" />
+            </div>
             <div 
                 id='botaoMode' 
                 onClick={() => setModoEscuro(!modoEscuro)}
+                role="button"
+                aria-pressed={modoEscuro}
+                title={modoEscuro ? "Desativar modo escuro" : "Ativar modo escuro"}
             >
                 <i className="material-icons">
                     {modoEscuro ? "dark_mode" : "light_mode"}
