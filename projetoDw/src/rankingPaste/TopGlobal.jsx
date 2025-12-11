@@ -20,7 +20,7 @@ function TopGlobal() {
           <h2>Difícil</h2>
           <ul>
             {[1,2,3,4,5,6,7,8,9,10].map((n) => (
-              <li key={n}>{n}º - Nome}</li>
+              <li key={n}>{n}º - Nome</li>
             ))}
           </ul>
         </div>
@@ -29,7 +29,7 @@ function TopGlobal() {
           <h2>Fácil</h2>
           <ul>
             {[1,2,3,4,5,6,7,8,9,10].map((n) => (
-              <li key={n}>{n}º - Nome}</li>
+              <li key={n}>{n}º - Nome</li>
             ))}
           </ul>
         </div>

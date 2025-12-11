@@ -1,18 +1,24 @@
 import "./criarQuiz.css";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../supabase";
+import { supabase } from "../supabase"; 
 import { useState } from "react";
-import { criarQuiz } from "../supabaseCriarQuiz"
 
 
 function CriarQuiz() {
   const navigate = useNavigate();
 
+  // Mapeamento de categorias e tempos para salvar o texto/valor
+  const categories = ["Matemática", "Química", "Computação", "Conhecimentos Gerais"];
+  const tempos = ["15 segundos", "30 segundos", "1 minuto"];
+  const poderes = ["Sim", "Não"];
+
+  // Estados do Quiz (Configurações gerais)
   const [quizName, setQuizName] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedTempo, setSelectedTempo] = useState(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState(null);
   const [selectedPoderes, setSelectedPoderes] = useState(null);
+  const [isLoading, setIsLoading] = useState(false); 
 
   const [questions, setQuestions] = useState([
     {
@@ -69,20 +75,107 @@ function CriarQuiz() {
     );
   };
 
-async function handleCreateQuiz() {
-  const quiz = await supabaseCriaQuiz.criarQuiz({
-    quizName,
-    selectedCategory,
-    selectedPoderes,
-    selectedTempo,
-    selectedDifficulty,
-  });
+  // ------------------------------------------------------------------
+  // FUNÇÃO PRINCIPAL DE SALVAMENTO NO SUPABASE (CORRIGIDA)
+  // ------------------------------------------------------------------
 
-  await supabaseCriaQuiz.salvarPerguntas(quiz.id, questions);
+  async function handleCreateQuiz() {
+    if (isLoading) return; 
+    setIsLoading(true);
 
-  alert("Quiz criado com sucesso!");
-  navigate("/quiz/" + quiz.id);
-}
+    // 1. Validação
+    if (!quizName || selectedCategory === null || !selectedDifficulty || selectedTempo === null || selectedPoderes === null) {
+      alert("Por favor, preencha todos os campos de configuração (Nome, Categoria, Dificuldade, Tempo, Poderes).");
+      setIsLoading(false);
+      return;
+    }
+    if (questions.length === 0 || questions.some(q => !q.pergunta.trim() || q.respostas.some(r => !r.texto.trim()))) {
+        alert("Pelo menos uma pergunta e todas as suas alternativas devem ser preenchidas.");
+        setIsLoading(false);
+        return;
+    }
+    if (questions.some(q => q.respostas.every(r => r.correta === false))) {
+        alert("Cada pergunta deve ter exatamente uma alternativa marcada como correta.");
+        setIsLoading(false);
+        return;
+    }
+
+
+    try {
+        // Mapear IDs/Índices para valores de texto
+        const categoryValue = categories[selectedCategory];
+        const tempoValue = tempos[selectedTempo];
+        const poderesValue = selectedPoderes === "Sim";
+
+        // 2. INSERIR O QUIZ NA TABELA 'quizzes'
+        const { data: quizData, error: quizError } = await supabase
+            .from('quizzes') 
+            .insert({
+                nome: quizName,
+                categoria: categoryValue,
+                dificuldade: selectedDifficulty,
+                tempo: tempoValue, 
+                permitir_poderes: poderesValue, // <<--- CORRIGIDO: Agora é 'permitir_poderes'
+                // user_id: (Adicione o ID do usuário se necessário)
+            })
+            .select() 
+            .single();
+
+        if (quizError) throw quizError;
+        
+        const quizId = quizData.id;
+
+        // 3. ITERAR E INSERIR TODAS AS PERGUNTAS E RESPOSTAS
+        for (let i = 0; i < questions.length; i++) {
+            const question = questions[i];
+            const ordem = i + 1; 
+
+            // A. INSERIR A PERGUNTA NA TABELA 'questions'
+            const { data: questionData, error: questionError } = await supabase
+                .from('questions')
+                .insert({
+                    quiz_id: quizId,
+                    pergunta: question.pergunta, 
+                    ordem: ordem, 
+                })
+                .select()
+                .single();
+
+            if (questionError) throw questionError;
+
+            const questionId = questionData.id;
+            
+            // B. Preparar as respostas para inserção
+            const answersToInsert = question.respostas.map(r => ({
+                question_id: questionId,
+                letra: r.letra,
+                texto: r.texto,
+                correta: r.correta,
+            }));
+            
+            // C. INSERIR AS RESPOSTAS NA TABELA 'answers'
+            const { error: answersError } = await supabase
+                .from('answers')
+                .insert(answersToInsert);
+
+            if (answersError) throw answersError;
+        }
+
+        // 4. SUCESSO
+        alert("Quiz criado com sucesso!");
+        navigate("/quiz/" + quizId);
+
+    } catch (error) {
+        console.error("Erro ao criar quiz:", error);
+        alert(`Erro ao salvar no banco de dados: ${error.message}`);
+    } finally {
+        setIsLoading(false);
+    }
+  }
+
+  // ------------------------------------------------------------------
+  // RENDERIZAÇÃO
+  // ------------------------------------------------------------------
 
   return (
     <div className="ContainerCriarQuiz">
@@ -105,7 +198,7 @@ async function handleCreateQuiz() {
           <h1>Categorias</h1>
 
           <div className="CheckBoxCriarQuiz">
-            {["Matemática", "Química", "Computação", "Conhecimentos Gerais"].map(
+            {categories.map(
               (nome, i) => (
                 <div key={i} className="divCriarQuiz">
                   <div className="textCriarQuiz">{nome}</div>
@@ -139,7 +232,7 @@ async function handleCreateQuiz() {
               <h1>Permitir Poderes</h1>
 
               <div className="CheckBoxCriarQuiz">
-                {["Sim", "Não"].map((op) => (
+                {poderes.map((op) => (
                   <div key={op} className="divCriarQuiz">
                     <div className="secCriarQuiz">{op}</div>
                     <input
@@ -160,7 +253,7 @@ async function handleCreateQuiz() {
               <h1>Tempo/Questão</h1>
 
               <div className="CheckBoxCriarQuiz">
-                {["15 segundos", "30 segundos", "1 minuto"].map(
+                {tempos.map(
                   (t, index) => (
                     <div key={t} className="divCriarQuiz">
                       <div className="secCriarQuiz">{t}</div>
@@ -284,6 +377,7 @@ async function handleCreateQuiz() {
                             className="checkboxCriarQuiz"
                             checked={r.correta}
                             onChange={(e) => {
+                              // Lógica para garantir que apenas uma resposta é correta
                               const newR = current.respostas.map(
                                 (item, i) => ({
                                   ...item,
@@ -307,11 +401,11 @@ async function handleCreateQuiz() {
           )}
       </div>
 
-      <button id="btnCriarQuiz" onClick={handleCreateQuiz}>
-        Criar Quiz
+      <button id="btnCriarQuiz" onClick={handleCreateQuiz} disabled={isLoading}>
+        {isLoading ? "Criando..." : "Criar Quiz"}
       </button>
 
-      <button id="btnAddPergunta" onClick={handleAddQuestion}>
+      <button id="btnAddPergunta" onClick={handleAddQuestion} disabled={questions.length >= 24}>
         +
       </button>
     </div>
