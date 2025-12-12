@@ -34,10 +34,6 @@ function TerminarQuiz() {
             <div className="pCard">Pontos Ganhos</div>
           </div>
         </div>
-        <div className="trilhoCards">
-          <div className="cardGrafico"></div>
-          <div className="cardGrafico"></div>
-        </div>
       </div>
     </div>
   );
