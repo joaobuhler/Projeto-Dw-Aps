@@ -74,3 +74,9 @@
 }
 
 
+
+.nomeUsuario {
+    color: var(--cor-texto);
+    font-size: 18px;
+    margin-left: 10px;
+}
