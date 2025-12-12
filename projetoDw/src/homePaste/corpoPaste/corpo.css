@@ -1,4 +1,4 @@
-#botaoMode{
+#botaoMode {
     position: absolute;
     bottom: 2rem;
     right: 2rem;
@@ -11,49 +11,77 @@
     justify-content: center;
     align-items: center;
     color: var(--cor-fundo);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    transition: 0.2s ease;
 }
 
-.corpoContainer{
+#botaoMode:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.30);
+}
+
+/* ------------------------------------ */
+
+.corpoContainer {
     height: 95vh;
     width: 100vw;
     padding: 4rem;
     background-color: var(--cor-fundo);
 }
 
-.corpoConteudo{
+.corpoConteudo {
     height: 100%;
     width: 100%;
     display: flex;
     flex-flow: row wrap;
+    gap: 2rem;
+    justify-content: center;
 }
 
-.blocoQuiz{
+/* ------------------------------------ */
+/* CARD DO QUIZ — versão bem mais bonita */
+
+.blocoQuiz {
     height: 20rem;
     width: 15rem;
-    margin: 1rem;
+    padding: 1rem;
+    margin: 0.8rem;
     background-color: var(--cor-detalhes);
-    box-shadow: var(--cor-escura) 8px 8px;
-    color: var(--cor-texto);
     border-radius: 1rem;
+    color: var(--cor-texto);
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.2),
+        var(--cor-escura) 6px 6px 0;
+
+    transition: all 0.25s ease;
 }
 
-.sobreQuiz{
+.blocoQuiz:hover {
+    transform: translateY(-5px) scale(1.04);
+    box-shadow:
+        0 12px 25px rgba(0,0,0,0.25),
+        var(--cor-escura) 8px 8px 0;
+}
+
+/* ------------------------------------ */
+
+.sobreQuiz {
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 1rem;
+    gap: 0.6rem;
     font-size: 1.1rem;
+    padding: 0 0.4rem;
 }
 
-.blocoQuiz:hover{
-    scale: 1.05;
-    transition: all 0.1s ease-in-out;
-}
+/* ------------------------------------ */
+/* MODAL */
 
 .modalOverlay {
     position: fixed;
@@ -61,57 +89,98 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.65);
     display: flex;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(3px);
 }
 
 .modal {
     display: flex;
     flex-direction: column;
-    gap: 0.2rem;
+    gap: 0.6rem;
     background: var(--cor-detalhes);
-    padding: 25px;
-    border-radius: 15px;
+    padding: 30px;
+    border-radius: 18px;
     width: 90%;
     max-width: 450px;
-    animation: aparecer 0.2s ease;
+    animation: aparecer 0.25s ease;
     color: var(--cor-texto);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
 }
 
 @keyframes aparecer {
-    from { transform: scale(0.9); opacity: 0; }
+    from { transform: scale(0.85); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
 
-.btnJogar {
+/* ------------------------------------ */
+/* BOTÕES DO MODAL */
+
+.btnJogar, .btnFechar {
     width: 100%;
+    height: 2.4rem;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s ease;
+}
+
+.btnJogar {
     background: var(--cor-escura);
     color: var(--cor-texto);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 18px;
-    height: 2rem;
-    margin-top: 1rem ;
+}
+
+.btnJogar:hover {
+    background-color: rgba(0, 0, 0, 0.65);
+    transform: translateY(-2px);
 }
 
 .btnFechar {
     background-color: var(--cor-texto);
+    color: var(--cor-fundo);
+}
+
+.btnFechar:hover {
+    background-color: rgba(255,255,255,0.7);
+    transform: translateY(-2px);
+}
+
+/* ------------------------------------ */
+/* TOPO DO CARD */
+
+.topoCard {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 100%;
-    margin-top: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 18px;
-    height: 2rem;
+}
+
+/* ------------------------------------ */
+/* BOTÃO DE APAGAR — versão melhorada */
+
+.btnApagar {
+    background: #c72b2b;
     border: none;
+    color: white;
+    font-size: 1.3rem;
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 0.7rem;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
 
-.btnJogar:hover{
-    background-color: rgba(0, 0, 0, 0.623);
-}
-
-.btnFechar:hover{
-    background-color: rgba(255, 255, 255, 0.623);
+.btnApagar:hover {
+    background-color: #e33a3a;
+    transform: scale(1.12) translateY(-2px);
+    box-shadow: 0 5px 14px rgba(0,0,0,0.3);
 }

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../../supabase";
-import './corpo.css';
+import { apagarQuiz } from "../../funcaosupa";
+
+import "./corpo.css";
 
 function Corpo() {
     const [modoEscuro, setModoEscuro] = useState(() => {
@@ -15,9 +17,7 @@ function Corpo() {
     const [quizzes, setQuizzes] = useState([]);
     const [selectedQuiz, setSelectedQuiz] = useState(null);
 
-    // ----------------------------
-    // 1. CARREGAR TODOS OS QUIZZES
-    // ----------------------------
+    // ---- CARREGAR QUIZZES ----
     useEffect(() => {
         async function fetchQuizzes() {
             const { data, error } = await supabase
@@ -32,9 +32,23 @@ function Corpo() {
         fetchQuizzes();
     }, []);
 
-    // ----------------------------
-    // 2. SISTEMA DE TEMAS (já existia)
-    // ----------------------------
+    // ---- FUNÇÃO APAGAR ----
+    async function handleDelete(id) {
+        const ok = window.confirm("Tem certeza que deseja apagar esse quiz?");
+        if (!ok) return;
+
+        const resultado = await apagarQuiz(id);
+
+        if (resultado?.error) {
+            alert("Erro ao apagar.");
+            return;
+        }
+
+        setQuizzes((prev) => prev.filter((q) => q.id !== id));
+        alert("Quiz apagado!");
+    }
+
+    // ---- MODO ESCURO ----
     useEffect(() => {
         const root = document.documentElement;
 
@@ -59,24 +73,37 @@ function Corpo() {
 
 
     return (
-        <div className='corpoContainer'>
-            <div className='corpoConteudo'>
+        <div className="corpoContainer">
+            <div className="corpoConteudo">
+
                 {quizzes.map((quiz) => (
-                    <div 
-                        key={quiz.id} 
+                    <div
+                        key={quiz.id}
                         className="blocoQuiz quizCard"
                         onClick={() => setSelectedQuiz(quiz)}
                     >
-                        <h2>{quiz.nome}</h2>
+                        <div className="topoCard">
+                            <h2>{quiz.nome}</h2>
+
+                            <button
+                                className="btnApagar"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDelete(quiz.id);
+                                }}
+                            >
+                                🗑️
+                            </button>
+                        </div>
+
                         <div className="sobreQuiz">
-                            <p><strong>Categoria: <br /></strong> {quiz.categoria}</p>
-                            <p><strong>Dificuldade: <br /></strong> {quiz.dificuldade}</p>
-                            <p><strong>Tempo/questão: <br /></strong> {quiz.tempo}</p>
+                            <p><strong>Categoria:</strong> {quiz.categoria}</p>
+                            <p><strong>Dificuldade:</strong> {quiz.dificuldade}</p>
+                            <p><strong>Tempo/questão:</strong> {quiz.tempo}</p>
                         </div>
                     </div>
                 ))}
 
-                {/* Caso não tenha quizzes */}
                 {quizzes.length === 0 && (
                     <p style={{ textAlign: "center", width: "100%" }}>
                         Nenhum quiz criado ainda.
@@ -85,21 +112,18 @@ function Corpo() {
             </div>
 
             {/* BOTÃO TEMA */}
-            <div 
-                id='botaoMode' 
+            <div
+                id="botaoMode"
                 onClick={() => setModoEscuro(!modoEscuro)}
                 role="button"
                 aria-pressed={modoEscuro}
-                title={modoEscuro ? "Desativar modo escuro" : "Ativar modo escuro"}
             >
                 <i className="material-icons">
                     {modoEscuro ? "dark_mode" : "light_mode"}
                 </i>
             </div>
 
-            {/* ----------------------------
-                MODAL (TELA FLUTUANTE)
-            ----------------------------- */}
+            {/* MODAL */}
             {selectedQuiz && (
                 <div className="modalOverlay" onClick={() => setSelectedQuiz(null)}>
                     <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -109,15 +133,15 @@ function Corpo() {
                         <p><strong>Tempo por questão:</strong> {selectedQuiz.tempo}</p>
                         <p><strong>Poderes:</strong> {selectedQuiz.permitir_poderes ? "Sim" : "Não"}</p>
 
-                        <button 
-                            className="btnJogar" 
+                        <button
+                            className="btnJogar"
                             onClick={() => window.location.href = `/jogarQuiz/${selectedQuiz.id}`}
                         >
                             Jogar
                         </button>
 
-                        <button 
-                            className="btnFechar" 
+                        <button
+                            className="btnFechar"
                             onClick={() => setSelectedQuiz(null)}
                         >
                             Fechar
