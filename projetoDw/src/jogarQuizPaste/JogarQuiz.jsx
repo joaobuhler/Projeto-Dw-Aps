@@ -153,7 +153,7 @@ function JogarQuiz() {
 
     const registro = {
       perguntaId: perguntaAtual?.id ?? null,
-      correta: config.ignorarErro ? true : !!resposta?.correta,
+      correta: config.ignorarErro ? false : !!resposta?.correta,
       respostaId: resposta?.id ?? null,
       tempoGasto,
     };
