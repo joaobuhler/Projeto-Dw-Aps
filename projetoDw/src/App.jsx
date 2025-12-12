@@ -31,14 +31,14 @@ function App() {
       root.style.setProperty("--cor-escura", "#172a3a");
       root.style.setProperty("--cor-navbar", "rgb(17, 17, 17)");
       root.style.setProperty("--cor-texto", "#ffffff");
-    } else {
+  } else {
       root.style.setProperty("--cor-principal", "#82c0cc");
       root.style.setProperty("--cor-fundo", "#edf2f4");
       root.style.setProperty("--cor-detalhes", "#489fb5");
       root.style.setProperty("--cor-escura", "#16697a");
       root.style.setProperty("--cor-navbar", "#489fb5");
-      root.style.setProperty("--cor-texto", "#000000");
-    }
+      root.style.setProperty("--cor-texto", "#ffffff");
+  }
 
     localStorage.setItem("modoEscuro", JSON.stringify(modoEscuro));
   }, [modoEscuro]);

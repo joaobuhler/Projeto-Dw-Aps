@@ -35,7 +35,6 @@
     display: flex;
     flex-flow: row wrap;
     gap: 2rem;
-    justify-content: center;
 }
 
 /* ------------------------------------ */
@@ -162,7 +161,7 @@
 /* BOTÃO DE APAGAR — versão melhorada */
 
 .btnApagar {
-    background: #c72b2b;
+    background: var(--cor-escura);
     border: none;
     color: white;
     font-size: 1.3rem;
@@ -180,7 +179,7 @@
 }
 
 .btnApagar:hover {
-    background-color: #e33a3a;
+    background-color: var(--cor-escura);
     transform: scale(1.12) translateY(-2px);
     box-shadow: 0 5px 14px rgba(0,0,0,0.3);
 }

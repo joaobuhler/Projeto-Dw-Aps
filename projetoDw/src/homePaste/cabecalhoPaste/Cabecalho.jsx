@@ -15,7 +15,6 @@ function Cabecalho({ navbarAberta, setNavbarAberta }) {
           <h1>Quizado</h1>
         </div>
         <div className="direitaCabecalho">
-          <button className="botaoLogin">Entrar</button>
           <button className="botaoPerfil"><i className="material-icons person">person</i></button>
         </div>
       </div>

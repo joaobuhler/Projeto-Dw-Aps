@@ -68,9 +68,6 @@ function Login(){
                             <i class="material-icons">rocket_launch</i>
                             <span>Entrar</span>
                         </button>
-                        <button className='botaoLoginCadastro'>
-                            <span>Google</span>
-                        </button>
                     </div>
                 </div>
 

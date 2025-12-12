@@ -55,7 +55,7 @@ h1 {
     right: 0;
     bottom: 0;
 
-    background-color: var(--cor-fundo);
+    background-color: var(--cor-detalhes);
     border: 2px solid var(--cor-escura);
 
     cursor: pointer;
@@ -73,7 +73,7 @@ h1 {
     width: var(--switch_height);
     height: var(--switch_height);
 
-    background-color: var(--cor-fundo);
+    background-color: var(--cor-texto);
     border-radius: 50%;
     border: 2px solid var(--cor-escura);
     box-shadow: 0 0.2em 0 var(--cor-escura);
